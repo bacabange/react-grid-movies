@@ -12,8 +12,17 @@ class App extends Component {
 		super();
 
 		this.state = {
-			movies: {}
+			movies: initialMovies
 		};
+
+		this.loadAdditionalMovies = this.loadAdditionalMovies.bind(this);
+	}
+
+	loadAdditionalMovies(e) {
+		var currentMovies = { ...this.state.movies };
+		var newMovies = Object.assign( currentMovies, additionalMovies );
+
+		this.setState({ movies: newMovies });
 	}
 
 	render() {
@@ -22,11 +31,14 @@ class App extends Component {
 			<Header text="David's Movie Mojo App!" />
 			<p className="App-intro">Sharing a few of our favourite movies</p>
 			<div className="movies">
-				<Movie title="50 First Dates" year="2004" description="Henry Roth is a man afraid of commitment up until he meets the beautiful Lucy. They hit it off and Henry think he's finally found the girl of his dreams." poster="./posters/50-first-dates.png" />
-				<Movie title="Ferris Bueller's Day Off" year="1986" description="A high school wise guy is determined to have a day off from school, despite what the principal thinks of that." poster="./posters/ferris.png" />
-				<Movie title="Matilda" year="1996" description="Story of a wonderful little girl, who happens to be a genius, and her wonderful teacher vs. the worst parents ever and the worst school principal imaginable." poster="./posters/matilda.png" />
-				<Movie title="Dirty Dancing" year="1987" description="Spending the summer at a Catskills resort with her family, Frances 'Baby' Houseman falls in love with the camp's dance instructor, Johnny Castle." poster="./posters/dirty-dancing.png" />
+				{
+					Object
+					.keys(this.state.movies)
+					.map(key => <Movie key={key} meta={this.state.movies[key]} />)
+				}
 			</div>
+
+			<div className="add-movies"><button onClick={this.loadAdditionalMovies}>Load more...</button></div>
 		  </div>
 		);
 	}
