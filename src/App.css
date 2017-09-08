@@ -46,3 +46,21 @@
   padding: 5px 25px 10px 25px;
   max-width: 25%;
 }
+
+.movie-form {
+  width: 250px;
+  margin: 0 auto;
+}
+
+.movie-form input, .movie-form textarea {
+  width: 250px;
+  font-size:14px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.movie-form button {
+  font-size: 16px;
+  padding: 4px;
+  margin: 10px 10px 30px 10px;
+}

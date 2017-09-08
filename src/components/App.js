@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Movie from './Movie';
+import AddMovie from './AddMovie';
 
 import {initialMovies} from '../movies';
 import {additionalMovies} from '../movies';
@@ -16,6 +17,7 @@ class App extends Component {
 		};
 
 		this.loadAdditionalMovies = this.loadAdditionalMovies.bind(this);
+		this.addMovieToGallery = this.addMovieToGallery.bind( this );
 	}
 
 	loadAdditionalMovies(e) {
@@ -24,6 +26,17 @@ class App extends Component {
 
 		this.setState({ movies: newMovies });
 	}
+
+	addMovieToGallery( movie ) {
+		var ts = Date.now();
+		var newMovie = {};
+		newMovie[ 'movie' + ts ] = movie;
+		var currentMovies = { ...this.state.movies };
+		var newMovies = Object.assign( currentMovies, newMovie );
+		this.setState({ movies: newMovies });
+	}
+
+
 
 	render() {
 		return (
@@ -39,6 +52,8 @@ class App extends Component {
 			</div>
 
 			<div className="add-movies"><button onClick={this.loadAdditionalMovies}>Load more...</button></div>
+
+			<AddMovie addMovie={this.addMovieToGallery} />
 		  </div>
 		);
 	}
